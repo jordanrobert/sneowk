@@ -1,0 +1,42 @@
+body {
+  background: #333;
+  text-align: center;
+  padding-top: 20px;
+  color: #eee;
+}
+
+#game {
+  outline: none;
+}
+
+.board {
+  border: 1px solid #999;
+  display: inline-block;
+}
+
+.board--paused {
+  opacity: 50%;
+}
+
+.row {
+  display: flex;
+}
+
+.square {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #999;
+  background: #aaa;
+}
+
+.square--snake {
+  background: #000;
+}
+
+.square--food {
+  background: green;
+}
+
+.game-over .square--snake {
+  background-color: red;
+}

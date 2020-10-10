@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from 'react';
+import Context from './context';
+import Game from './components/game';
+import reducer from './reducer';
+
+const initialState = {
+    snakeCoords: [
+        [1, 1], // tail
+        [2, 1],
+        [3, 1], // head
+    ],
+    foodCoords: [1, 1],
+    paused: true,
+    gameOver: false,
+    direction: 'right',
+};
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    return (
+        <Context.Provider value={[state, dispatch]}>
+            <Game></Game>
+        </Context.Provider>
+    )
 }
 
 export default App;
