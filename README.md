@@ -1,7 +1,7 @@
 # sneowk
 Snake game in React
 
-## Instruction
+## Instructions
 
 1. Clone
 2. npm install
@@ -10,3 +10,7 @@ Snake game in React
 ## Game Play
 
 WASD to move. Space to pause/unpause.
+
+## Live Demo
+
+x
