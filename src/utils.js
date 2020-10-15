@@ -45,3 +45,21 @@ export const generateAvailableCoords = (unavailableCoords) => {
 
     return [randomX, randomY];
 };
+
+export const detectCollision = (coords, { foodCoords, snakeCoords }) => {
+    // if the snake ate food
+    if (areArraysSame(coords, foodCoords)) return 'food';
+
+    // if snake hits itself
+    if (areCoordsInArray(coords, snakeCoords)) return 'snake';
+    
+    // if the snake went out of bounds
+    if (
+        coords[0] === -1
+        || coords[1] === -1
+        || coords[0] === WIDTH
+        || coords[1] === HEIGHT
+    ) return 'bounds';
+
+    return false;
+};

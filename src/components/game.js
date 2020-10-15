@@ -88,6 +88,9 @@ function Game() {
         >
             <h1>SneoWk</h1>
             <Board />
+            <div>
+                Score: { state.score }
+            </div>
         </div>
     );
 }

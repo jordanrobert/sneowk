@@ -13,6 +13,7 @@ const initialState = {
     paused: true,
     gameOver: false,
     direction: 'right',
+    score: 0,
 };
 
 function App() {

@@ -1,5 +1,4 @@
-import { generateAvailableCoords, areArraysSame, areCoordsInArray } from './utils';
-import { WIDTH, HEIGHT } from './settings';
+import { generateAvailableCoords, detectCollision } from './utils';
 
 export default function reducer(state, action) {
     switch (action.type) {
@@ -16,14 +15,12 @@ export default function reducer(state, action) {
             }
 
         case 'MOVE_SNAKE': {
-            const { snakeCoords, direction } = state;
+            let { snakeCoords, direction, score, gameOver, foodCoords } = state;
+            snakeCoords = [...snakeCoords];
             const headCoords = snakeCoords[snakeCoords.length - 1];
             const headCoordsX = headCoords[0];
             const headCoordsY = headCoords[1];
-            const newSnakeCoords = [...snakeCoords];
             let nextSnakeCoords = [];
-            let newFoodCoords = state.foodCoords;
-            let gameOver = false;
             
             switch (direction) {
                 case 'up':
@@ -45,30 +42,29 @@ export default function reducer(state, action) {
                 default:
             }
 
-            // if the snake ate food
-            if (areArraysSame(nextSnakeCoords, state.foodCoords)) {
-                newFoodCoords = generateAvailableCoords([...state.snakeCoords, state.foodCoords]);
-                newSnakeCoords.push(nextSnakeCoords);
-            } else {
-                // if the snake went out of bounds
-                // or if snake hits itself
-                if (
-                    (nextSnakeCoords[0] === -1 || nextSnakeCoords[1] === -1 || nextSnakeCoords[0] === WIDTH || nextSnakeCoords[1] === HEIGHT) ||
-                    areCoordsInArray(nextSnakeCoords, state.snakeCoords)
-                 ) {
+            switch(detectCollision(nextSnakeCoords, { foodCoords, snakeCoords })) {
+                case 'food':
+                    foodCoords = generateAvailableCoords([...state.snakeCoords, state.foodCoords]);
+                    snakeCoords.push(nextSnakeCoords);
+                    score += 1;
+                    break;
+
+                case 'snake':
+                case 'bounds':
                     gameOver = true;
-                } else {
-                    newSnakeCoords.shift();
-                    newSnakeCoords.push(nextSnakeCoords);
-                }
+                    break;
+
+                default:
+                    snakeCoords.shift();
+                    snakeCoords.push(nextSnakeCoords);
             }
-            
     
             return {
                 ...state,
-                snakeCoords: newSnakeCoords,
-                foodCoords: newFoodCoords,
+                snakeCoords,
+                foodCoords,
                 gameOver,
+                score,
             }
         }
 
