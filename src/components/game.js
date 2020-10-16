@@ -21,49 +21,52 @@ function Game() {
         });
     };
 
+    const changeDirection = (direction) => {
+        dispatch({
+            type: 'SET_DIRECTION',
+            direction,
+        });
+    };
+
+    const togglePause = () => {
+        if (state.gameOver) return;
+
+        if (state.paused) {
+            dispatch({
+                type: 'UNPAUSE',
+            });
+            gameIntervalRef.current = setInterval(moveSnake, SPEED);
+        } else {
+            dispatch({
+                type: 'PAUSE',
+            });
+            clearInterval(gameIntervalRef.current);
+        }
+    };
+
     const handleKey = (e) => {
-        let newDirection;
         switch (e.key.toLowerCase()) {
             case 'w':
-                if (state.direction !== 'down') newDirection = 'up';
+                if (state.direction !== 'down') changeDirection('up');
                 break;
 
             case 'a':
-                if (state.direction !== 'right') newDirection = 'left';
+                if (state.direction !== 'right') changeDirection('left');
                 break;
 
             case 's':
-                if (state.direction !== 'up') newDirection = 'down';
+                if (state.direction !== 'up') changeDirection('down');
                 break;
 
             case 'd':
-                if (state.direction !== 'left') newDirection = 'right';
+                if (state.direction !== 'left') changeDirection('right');
                 break;
 
             case ' ':
-                if (state.gameOver) break;
-
-                if (state.paused) {
-                    dispatch({
-                        type: 'UNPAUSE',
-                    });
-                    gameIntervalRef.current = setInterval(moveSnake, SPEED);
-                } else {
-                    dispatch({
-                        type: 'PAUSE',
-                    });
-                    clearInterval(gameIntervalRef.current);
-                }
+                togglePause();
                 break;
 
             default:
-        }
-
-        if(newDirection) {
-            dispatch({
-                type: 'SET_DIRECTION',
-                direction: newDirection,
-            });
         }
     };
 
@@ -92,11 +95,11 @@ function Game() {
                 Score: { state.score }
             </div>
             <div class="controls">
-                <button class="control control-up"></button>
-                <button class="control control-left"></button>
-                <button class="control control-right"></button>
-                <button class="control control-down"></button>
-                <button class="control-pause"></button>
+                <button onClick={() => changeDirection('up')} class="control control-up"></button>
+                <button onClick={() => changeDirection('left')} class="control control-left"></button>
+                <button onClick={() => changeDirection('right')} class="control control-right"></button>
+                <button onClick={() => changeDirection('down')} class="control control-down"></button>
+                <button onClick={() => togglePause()} class="control-pause"></button>
             </div>
         </div>
     );
