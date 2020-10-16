@@ -29,18 +29,22 @@ function Game() {
     };
 
     const togglePause = () => {
-        if (state.gameOver) return;
-
-        if (state.paused) {
+        if (state.gameOver) {
             dispatch({
-                type: 'UNPAUSE',
+                type: 'RESET_GAME',
             });
-            gameIntervalRef.current = setInterval(moveSnake, SPEED);
         } else {
-            dispatch({
-                type: 'PAUSE',
-            });
-            clearInterval(gameIntervalRef.current);
+            if (state.paused) {
+                dispatch({
+                    type: 'UNPAUSE',
+                });
+                gameIntervalRef.current = setInterval(moveSnake, SPEED);
+            } else {
+                dispatch({
+                    type: 'PAUSE',
+                });
+                clearInterval(gameIntervalRef.current);
+            }
         }
     };
 

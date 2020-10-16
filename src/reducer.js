@@ -1,4 +1,5 @@
 import { generateAvailableCoords, detectCollision } from './utils';
+import { initialState } from './app';
 
 export default function reducer(state, action) {
     switch (action.type) {
@@ -67,6 +68,13 @@ export default function reducer(state, action) {
                 score,
             }
         }
+
+        case 'RESET_GAME':
+            const foodCoords = generateAvailableCoords([...initialState.snakeCoords, initialState.foodCoords]);
+            return {
+                ...initialState,
+                foodCoords,
+            };
 
         case 'GENERATE_FOOD':
             const newFoodCoords = generateAvailableCoords([...state.snakeCoords, state.foodCoords]);

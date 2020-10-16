@@ -3,7 +3,7 @@ import Context from './context';
 import Game from './components/game';
 import reducer from './reducer';
 
-const initialState = {
+export const initialState = {
     snakeCoords: [
         [1, 1], // tail
         [2, 1],
