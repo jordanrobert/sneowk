@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Context from './context';
 import Game from './components/game';
 import reducer from './reducer';
@@ -14,6 +14,7 @@ export const initialState = {
     gameOver: false,
     direction: 'right',
     score: 0,
+    highscore: null,
 };
 
 function App() {

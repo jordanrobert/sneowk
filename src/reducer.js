@@ -14,6 +14,12 @@ export default function reducer(state, action) {
                 ...state,
                 paused: false,
             }
+            
+        case 'SET_HIGHSCORE':
+            return {
+                ...state,
+                highscore: action.highscore,
+            }
 
         case 'MOVE_SNAKE': {
             let { snakeCoords, direction, score, gameOver, foodCoords } = state;
