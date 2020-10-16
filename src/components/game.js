@@ -91,6 +91,13 @@ function Game() {
             <div>
                 Score: { state.score }
             </div>
+            <div class="controls">
+                <button class="control control-up"></button>
+                <button class="control control-left"></button>
+                <button class="control control-right"></button>
+                <button class="control control-down"></button>
+                <button class="control-pause"></button>
+            </div>
         </div>
     );
 }

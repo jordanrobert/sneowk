@@ -1,14 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: #333;
-  text-align: center;
-  padding-top: 20px;
-  color: #eee;
 }
 
 #game {
   outline: none;
-  width: 100%;
-  height: 100%;
+  width: 292px;
+  text-align: center;
+  color: #ccc;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
 }
 
 .board {
@@ -41,4 +48,52 @@ body {
 
 .game-over .square--snake {
   background-color: red;
+}
+
+.controls {
+  position: relative;
+}
+
+.control, .control-pause {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  background: black;
+}
+
+.control {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.control-pause {
+  left: 50%;
+  margin-left: -30px;
+  top: 60px;
+}
+
+.control-left {
+  transform: rotate(-90deg);
+  left: 50%;
+  margin-left: -90px;
+  top: 60px;
+}
+
+.control-right {
+  transform: rotate(90deg);
+  right: 50%;
+  margin-right: -90px;
+  top: 60px;
+}
+
+.control-up {
+  left: 50%;
+  margin-left: -30px;
+}
+
+.control-down {
+  transform: rotate(180deg);
+  left: 50%;
+  margin-left: -30px;
+  top: 120px;
 }
