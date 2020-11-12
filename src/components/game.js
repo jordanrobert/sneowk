@@ -68,6 +68,7 @@ function Game() {
 
             case ' ':
                 togglePause();
+                console.log('space');
                 break;
 
             default:
@@ -108,12 +109,12 @@ function Game() {
                 Score: { state.score }<br />
                 HighScore: { state.highscore ? state.highscore : 'Loading' }
             </div>
-            <div class="controls">
-                <button onClick={() => changeDirection('up')} class="control control-up"></button>
-                <button onClick={() => changeDirection('left')} class="control control-left"></button>
-                <button onClick={() => changeDirection('right')} class="control control-right"></button>
-                <button onClick={() => changeDirection('down')} class="control control-down"></button>
-                <button onClick={() => togglePause()} class="control-pause"></button>
+            <div className="controls">
+                <button onMouseDown={() => changeDirection('up')} className="control control-up"></button>
+                <button onMouseDown={() => changeDirection('left')} className="control control-left"></button>
+                <button onMouseDown={() => changeDirection('right')} className="control control-right"></button>
+                <button onMouseDown={() => changeDirection('down')} className="control control-down"></button>
+                <button onMouseDown={() => { togglePause(); console.log('click');}} className="control-pause"></button>
             </div>
         </div>
     );
