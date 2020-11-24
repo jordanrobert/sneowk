@@ -1,4 +1,5 @@
 # sneowk
+
 Snake game in React
 
 ## Instructions
@@ -9,8 +10,8 @@ Snake game in React
 
 ## Game Play
 
-WASD to move. Space to pause/unpause.
+WASD to move. Space to start/pause.
 
 ## Live Demo
 
-x
+https://sneowk.herokuapp.com/
