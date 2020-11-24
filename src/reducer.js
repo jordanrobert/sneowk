@@ -80,8 +80,11 @@ export default function reducer(state, action) {
 
         case 'RESET_GAME':
             const foodCoords = generateAvailableCoords([...initialState.snakeCoords, initialState.foodCoords]);
+            const { highscore } = state;
+
             return {
                 ...initialState,
+                highscore,
                 foodCoords,
             };
 
