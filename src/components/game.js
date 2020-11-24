@@ -84,15 +84,6 @@ function Game() {
     useEffect(() => {
         gameElementRef.current.focus();
         generateFood();
-        
-        fetch('https://run.mocky.io/v3/50cb3d0e-a732-49f2-87b3-042fc65bbeb0')
-            .then(res => res.json())
-            .then(({ highscore }) => {
-                dispatch({
-                    type: 'SET_HIGHSCORE',
-                    highscore,
-                })
-            });
     }, []);
 
     return (
@@ -107,7 +98,7 @@ function Game() {
             <Board />
             <div>
                 Score: { state.score }<br />
-                HighScore: { state.highscore ? state.highscore : 'Loading' }
+                Highscore: { state.highscore }
             </div>
             <div className="controls">
                 <button onMouseDown={() => changeDirection('up')} className="control control-up"></button>

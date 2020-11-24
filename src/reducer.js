@@ -22,7 +22,7 @@ export default function reducer(state, action) {
             }
 
         case 'MOVE_SNAKE': {
-            let { snakeCoords, direction, score, gameOver, foodCoords } = state;
+            let { snakeCoords, direction, score, gameOver, foodCoords, highscore } = state;
             snakeCoords = [...snakeCoords];
             const headCoords = snakeCoords[snakeCoords.length - 1];
             const headCoordsX = headCoords[0];
@@ -65,6 +65,8 @@ export default function reducer(state, action) {
                     snakeCoords.shift();
                     snakeCoords.push(nextSnakeCoords);
             }
+
+            highscore = score > highscore ? score : highscore;
     
             return {
                 ...state,
@@ -72,6 +74,7 @@ export default function reducer(state, action) {
                 foodCoords,
                 gameOver,
                 score,
+                highscore,
             }
         }
 
