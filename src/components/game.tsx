@@ -4,12 +4,14 @@ import Context from '../context';
 import { SPEED } from '../settings';
 import '../style.css';
 
+type Direction = 'left' | 'right' | 'up' | 'down';
+
 function Game() {
     const [state, dispatch] = useContext(Context);
-    const gameElementRef = useRef();
-    const gameIntervalRef = useRef();
+    const gameElementRef = useRef<HTMLDivElement>(null);
+    const gameIntervalRef = useRef<number>();
 
-    const moveSnake = () => {
+    const moveSnake = () => { 
         dispatch({
             type: 'MOVE_SNAKE',
             ai: false,
@@ -29,7 +31,7 @@ function Game() {
         });
     };
 
-    const changeDirection = (direction) => {
+    const changeDirection = (direction: Direction) => {
         dispatch({
             type: 'SET_DIRECTION',
             direction,
@@ -46,7 +48,7 @@ function Game() {
                 dispatch({
                     type: 'UNPAUSE',
                 });
-                gameIntervalRef.current = setInterval(moveSnake, SPEED);
+                gameIntervalRef.current = window.setInterval(moveSnake, SPEED);
             } else {
                 dispatch({
                     type: 'PAUSE',
@@ -56,8 +58,8 @@ function Game() {
         }
     };
 
-    const handleKey = (e) => {
-        switch (e.key.toLowerCase()) {
+    const handleKey = (event: React.KeyboardEvent<HTMLElement>) => {
+        switch (event.key.toLowerCase()) {
             case 'w':
                 if (state.direction !== 'down') changeDirection('up');
                 break;
@@ -89,7 +91,7 @@ function Game() {
     }, [state.gameOver]);
 
     useEffect(() => {
-        gameElementRef.current.focus();
+        gameElementRef.current && gameElementRef.current.focus();
         generateFood();
     }, []);
 
@@ -97,7 +99,7 @@ function Game() {
         <div
             id="game"
             onKeyDown={handleKey}
-            tabIndex="0"
+            tabIndex={0}
             ref={gameElementRef}
             className={state.gameOver ? 'game-over' : ''}
         >
