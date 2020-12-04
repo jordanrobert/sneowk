@@ -15,6 +15,12 @@ function Game() {
         });
     };
 
+    const moveSnakeAI = () => {
+        dispatch({
+            type: 'MOVE_SNAKE_AI',
+        });
+    };
+
     const generateFood = () => {
         dispatch({
             type: 'GENERATE_FOOD',
@@ -38,7 +44,7 @@ function Game() {
                 dispatch({
                     type: 'UNPAUSE',
                 });
-                gameIntervalRef.current = setInterval(moveSnake, SPEED);
+                gameIntervalRef.current = setInterval(moveSnakeAI, SPEED);
             } else {
                 dispatch({
                     type: 'PAUSE',
@@ -68,7 +74,6 @@ function Game() {
 
             case ' ':
                 togglePause();
-                console.log('space');
                 break;
 
             default:
@@ -105,7 +110,7 @@ function Game() {
                 <button onMouseDown={() => changeDirection('left')} className="control control-left"></button>
                 <button onMouseDown={() => changeDirection('right')} className="control control-right"></button>
                 <button onMouseDown={() => changeDirection('down')} className="control control-down"></button>
-                <button onMouseDown={() => { togglePause(); console.log('click');}} className="control-pause"></button>
+                <button onMouseDown={() => togglePause()} className="control-pause"></button>
             </div>
         </div>
     );

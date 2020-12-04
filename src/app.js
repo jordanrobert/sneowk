@@ -9,7 +9,7 @@ export const initialState = {
         [2, 1],
         [3, 1], // head
     ],
-    foodCoords: [1, 1],
+    foodCoords: [0, 0],
     paused: true,
     gameOver: false,
     direction: 'right',
