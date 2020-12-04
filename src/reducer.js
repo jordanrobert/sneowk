@@ -28,7 +28,7 @@ export default function reducer(state, action) {
             let { snakeCoords, direction, score, gameOver, foodCoords, highscore } = state;
             snakeCoords = [...snakeCoords];
             const headCoords = snakeCoords[snakeCoords.length - 1];
-            const cachedCoords = headCoords.slice();
+            const cachedHeadCoords = headCoords.slice();
             let nextSnakeCoords = [];
 
             const generateHeadCoords = (headCoords, failCount = 0) => {
@@ -101,7 +101,7 @@ export default function reducer(state, action) {
                     case 'snake':
                     case 'bounds':
                         if(action.ai) {
-                            generateHeadCoords(cachedCoords, failCount + 1);
+                            generateHeadCoords(cachedHeadCoords, failCount + 1);
                         } else {
                             gameOver = true;
                         }

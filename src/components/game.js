@@ -107,13 +107,6 @@ function Game() {
                 Score: { state.score }<br />
                 Highscore: { state.highscore }
             </div>
-            <div className="controls">
-                <button onMouseDown={() => changeDirection('up')} className="control control-up"></button>
-                <button onMouseDown={() => changeDirection('left')} className="control control-left"></button>
-                <button onMouseDown={() => changeDirection('right')} className="control control-right"></button>
-                <button onMouseDown={() => changeDirection('down')} className="control control-down"></button>
-                <button onMouseDown={() => togglePause()} className="control-pause"></button>
-            </div>
         </div>
     );
 }
