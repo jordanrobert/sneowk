@@ -12,7 +12,7 @@ function Board() {
         const foodY = state.foodCoords[1];
         const newBoard = generateEmptyBoard(WIDTH, HEIGHT);;
 
-        state.snakeCoords.map((square) => newBoard[square[1]][square[0]] = 1);
+        state.snakeCoords.map((square:number[]) => newBoard[square[1]][square[0]] = 1);
         newBoard[foodY][foodX] = 2;
 
         setBoard(newBoard);
