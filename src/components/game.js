@@ -12,12 +12,14 @@ function Game() {
     const moveSnake = () => {
         dispatch({
             type: 'MOVE_SNAKE',
+            ai: false,
         });
     };
 
     const moveSnakeAI = () => {
         dispatch({
-            type: 'MOVE_SNAKE_AI',
+            type: 'MOVE_SNAKE',
+            ai: true,
         });
     };
 
@@ -44,7 +46,7 @@ function Game() {
                 dispatch({
                     type: 'UNPAUSE',
                 });
-                gameIntervalRef.current = setInterval(moveSnakeAI, SPEED);
+                gameIntervalRef.current = setInterval(moveSnake, SPEED);
             } else {
                 dispatch({
                     type: 'PAUSE',
