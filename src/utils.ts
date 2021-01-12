@@ -1,18 +1,26 @@
 import { WIDTH, HEIGHT } from './settings';
+import { Coords } from './types';
 
-export const areArraysSame = (array1, array2) => {
+type ObjectCoords = {
+    foodCoords: Coords,
+    snakeCoords: Coords[],
+}
+
+type Collission = 'food' | 'snake' | 'bounds' | false;
+
+export const isArraysSame = (array1: number[], array2: number[]): boolean => {
     if(!array1 || !array2) return false;
     return (array1.length === array2.length) && array1.every((element, index) => element === array2[index]);
 };
 
-export const areCoordsInBounds = (coords) => {
+export const isCoordsInBounds = (coords: Coords): boolean => {
     const x = coords[0];
     const y = coords[1];
     if(x < 0 || y < 0 || x > WIDTH - 1 || y > HEIGHT - 1) return false;
     else return true;
 };
 
-export const generateEmptyBoard = (width, height) => {
+export const generateEmptyBoard = (width: number, height: number): Coords[] => {
     const board = [];
     const row = [];
 
@@ -27,9 +35,9 @@ export const generateEmptyBoard = (width, height) => {
     return board;
 };
 
-export const areCoordsInArray = (coords, arrayOfCoords) => {
+export const isCoordsInArray = (coords: Coords, arrayOfCoords: Coords[]): boolean => {
     for(let i = 0; i <= arrayOfCoords.length; i++) {
-        if(areArraysSame(arrayOfCoords[i], coords)) {
+        if(isArraysSame(arrayOfCoords[i], coords)) {
             return true;
         }
     }
@@ -37,21 +45,21 @@ export const areCoordsInArray = (coords, arrayOfCoords) => {
     return false;
 };
 
-export const generateAvailableCoords = (unavailableCoords) => {
+export const generateAvailableCoords = (unavailableCoords: Coords[]): Coords => {
     const randomX = Math.floor((Math.random() * WIDTH - 1) + 1);
     const randomY = Math.floor((Math.random() * HEIGHT - 1) + 1);
 
-    if (areCoordsInArray([randomX, randomY], unavailableCoords)) return generateAvailableCoords(unavailableCoords);
+    if (isCoordsInArray([randomX, randomY], unavailableCoords)) return generateAvailableCoords(unavailableCoords);
 
     return [randomX, randomY];
 };
 
-export const detectCollision = (coords, { foodCoords, snakeCoords }) => {
+export const detectCollision = (coords: number[], { foodCoords, snakeCoords }: ObjectCoords): Collission => {
     // if the snake ate food
-    if (areArraysSame(coords, foodCoords)) return 'food';
+    if (isArraysSame(coords, foodCoords)) return 'food';
 
     // if snake hits itself
-    if (areCoordsInArray(coords, snakeCoords)) return 'snake';
+    if (isCoordsInArray(coords, snakeCoords)) return 'snake';
     
     // if the snake went out of bounds
     if (

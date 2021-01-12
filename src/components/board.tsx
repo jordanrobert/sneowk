@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { generateEmptyBoard } from '../utils';
 import { WIDTH, HEIGHT } from '../settings';
-import Context from '../context';
+import { Context } from '../context';
 
 function Board() {
-    const [state, dispatch] = useContext(Context);
+    const { state, dispatch } = useContext(Context);
     const [board, setBoard] = useState(generateEmptyBoard(WIDTH, HEIGHT));
 
     useEffect(() => {
@@ -12,7 +12,7 @@ function Board() {
         const foodY = state.foodCoords[1];
         const newBoard = generateEmptyBoard(WIDTH, HEIGHT);;
 
-        state.snakeCoords.map((square:number[]) => newBoard[square[1]][square[0]] = 1);
+        state.snakeCoords.map((square) => newBoard[square[1]][square[0]] = 1);
         newBoard[foodY][foodX] = 2;
 
         setBoard(newBoard);

@@ -1,13 +1,11 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import Board from './board';
-import Context from '../context';
+import { Context } from '../context';
 import { SPEED } from '../settings';
-import '../style.css';
-
-type Direction = 'left' | 'right' | 'up' | 'down';
+import { Direction } from '../types';
 
 function Game() {
-    const [state, dispatch] = useContext(Context);
+    const { state, dispatch } = useContext(Context);
     const gameElementRef = useRef<HTMLDivElement>(null);
     const gameIntervalRef = useRef<number>();
 
@@ -32,6 +30,7 @@ function Game() {
     };
 
     const changeDirection = (direction: Direction) => {
+        console.log('changeDirection', direction);
         dispatch({
             type: 'SET_DIRECTION',
             direction,
@@ -58,7 +57,7 @@ function Game() {
         }
     };
 
-    const handleKey = (event: React.KeyboardEvent<HTMLElement>) => {
+    const handleKeyDown = (event: React.KeyboardEvent) => {
         switch (event.key.toLowerCase()) {
             case 'w':
                 if (state.direction !== 'down') changeDirection('up');
@@ -98,7 +97,7 @@ function Game() {
     return (
         <div
             id="game"
-            onKeyDown={handleKey}
+            onKeyDown={handleKeyDown}
             tabIndex={0}
             ref={gameElementRef}
             className={state.gameOver ? 'game-over' : ''}

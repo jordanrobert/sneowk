@@ -1,7 +1,17 @@
 import { generateAvailableCoords, detectCollision } from './utils';
-import { initialState } from './app';
+import { initialState } from './settings';
+import { State, Direction } from './types';
 
-export default function reducer(state, action) {
+type Action = 
+    | { type: 'PAUSE' }
+    | { type: 'UNPAUSE' }
+    | { type: 'MOVE_SNAKE', ai: boolean }
+    | { type: 'RESET_GAME' }
+    | { type: 'GENERATE_FOOD' }
+    | { type: 'SET_DIRECTION', direction: Direction }
+
+
+export default function reducer(state: State, action: Action) {
     switch (action.type) {
         case 'PAUSE': {
             return {
@@ -16,24 +26,17 @@ export default function reducer(state, action) {
                 paused: false,
             }
         }
-            
-        case 'SET_HIGHSCORE': {
-            return {
-                ...state,
-                highscore: action.highscore,
-            }
-        }
 
         case 'MOVE_SNAKE': {
-            let { snakeCoords, direction, score, gameOver, foodCoords, highscore } = state;
+            let { snakeCoords, foodCoords, direction, gameOver, score, highscore } = state;
             snakeCoords = [...snakeCoords];
-            const headCoords = snakeCoords[snakeCoords.length - 1];
+            const headCoords: number[] = snakeCoords[snakeCoords.length - 1];
             const cachedHeadCoords = headCoords.slice();
-            let nextSnakeCoords = [];
+            let nextSnakeCoords: number[] = [];
 
-            const generateHeadCoords = (headCoords, failCount = 0) => {
-                const headCoordsX = headCoords[0];
-                const headCoordsY = headCoords[1];
+            const generateHeadCoords = (headCoords: number[], failCount = 0) => {
+                const headCoordsX: number = headCoords[0];
+                const headCoordsY: number = headCoords[1];
 
                 if(action.ai) {
                     switch(failCount) {
@@ -128,8 +131,8 @@ export default function reducer(state, action) {
         }
 
         case 'RESET_GAME': {
-            const foodCoords = generateAvailableCoords([...initialState.snakeCoords, initialState.foodCoords]);
             const { highscore } = state;
+            const foodCoords = generateAvailableCoords([...initialState.snakeCoords, initialState.foodCoords]);
 
             return {
                 ...initialState,
@@ -148,9 +151,11 @@ export default function reducer(state, action) {
         }
 
         case 'SET_DIRECTION': {
+            const { direction } = action;
+
             return {
                 ...state,
-                direction: action.direction,
+                direction,
             }
         }
 
